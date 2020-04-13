@@ -1,20 +1,46 @@
+# MongoDB Cheatsheet
 
-### Some key Mongo Aggregation Framworks 
+
+## Key Mongo Aggregation Frameworks 
+* Modeled based on data processing pipelines. 
+* Documents enter a multi-stage pipeline that transforms documents into an aggregated result.
+* Key steps include:
+  * Providing filters (e.g. $match) that operate like queries and document transformations that modify form of the output.
+  * Providing for grouping and sorting documents (e.g. $group and $sort) by specific field or fields, and tools for aggregating the contents of arrays, including arrays of documents.
+
+* Example of a well-structured Mongo query would look something like this: 
+  * db.students.aggregate([{$match: {grade: "A"}}, {$group: {_id: "studentID", marks: {$avg: "$marks"}}}])
+  
+* Other possible stages in aggregation framework 
+  * $project : To select only specified fields or drop specified fields
+  * $match : filtering operation used to drop some stuff you don't need before the next stage (e.g sort or group) 
+  * $sort : Just sorts the documents
+  * $skip : Skip forward in a given list of documents for a specified number of documents
+  * $limit : Just limits the number of documents to view 
+  * $unwind : Breaks some elements in a given array into their constituents, creating separate documents. 
+   * For example: 
+    FIRST: db.students.insertOne({"_id": 1, "school": NUS, courses: ["BT2102", "CS2030"]})
+    THEN: db.students.aggregate([{$unwind: "$courses"}])
+    RETURNS: 
+    {"_id": 1, "school": NUS, "courses": "BT2102"} 
+    {"_id": 1, "school": NUS, "courses": "CS2030"}
+   
+    
+### What is an Aggregation Pipeline???
 
 **In SQL COUNT(*) and with GROUP BY is basically the same as mongo's aggregation** 
 _Basic basic syntax of aggregate() method:_ 
 
 db.collection.aggregate(aggregation_operation)
 
-#Let's say we have a collection students
-#If I want to display a list of how many submissions each student made, I would write the the following: 
+Let's say we have a collection students. If I want to display a list of how many submissions each student made, I would write the the following: 
 
 db.students.aggregate([{$group: {_id:"$student_name", numSubs: {$sum: 1}}}]);
 
 _Over here, I'm using student_name as a field, which will replace the _id part in the query output_ 
 
-#Important Aggregation Expressions
-#Let the collection here be students 
+#### Important Aggregation Expressions
+Let the collection here be students 
 1. SUM ($sum) 
 db.students.aggregate([{$group: {_id: "student_name", numSubs: {$sum: $views}}}]); 
 
