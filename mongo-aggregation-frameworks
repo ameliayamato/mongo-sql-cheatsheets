@@ -21,5 +21,12 @@ db.students.aggregate([{$group: {_id:"$student_name", numSubs: {$sum: 1}}}]);
   * db.students.aggregate([{$group: {_id: "student_name", numSubs: {$avg: $views}}}])
 
 * 3. MINIMUM ($min) 
-  * 
-
+  * db.students.aggregate([{$group: {_id: "student_name", numSubs: {$min: $views}}}]);
+   * returns the minimum of the corresponding values from all documents in a collection
+* 4. MAXIMUM ($max) 
+ * db.students.aggregate([{$group: {_id: "student_name", numSubs: {$max: $views}}}]);
+* 5. PUSH ITT ($push) 
+ * db.students.aggregate([{$group:{_id: "student_name", submissions: {$push: $submissions}}}}])
+  * yeah I actually still am not 100% sure what push is so here's more examples: 
+  
+*
