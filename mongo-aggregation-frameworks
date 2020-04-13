@@ -1,5 +1,9 @@
-#In SQL COUNT(*) and with GROUP BY is basically the same as mongo's aggregation
-#Basic basic syntax of aggregate() method:
+#Some key Mongo Aggregation Framworks 
+
+
+**In SQL COUNT(*) and with GROUP BY is basically the same as mongo's aggregation** 
+_Basic basic syntax of aggregate() method:_ 
+
 db.collection.aggregate(aggregation_operation)
 
 #Let's say we have a collection students
@@ -8,5 +12,14 @@ db.collection.aggregate(aggregation_operation)
 db.students.aggregate([{$group: {_id:"$student_name", numSubs: {$sum: 1}}}]);
 # Over here, I'm using student_name as a field, which will replace the _id part in the query output 
 
+#Important Aggregation Expressions
+#Let the collection here be students 
+* 1. SUM ($sum) 
+  * db.students.aggregate([{$group: {_id: "student_name", numSubs: {$sum: $views}}}]); 
 
+* 2. AVERAGE ($avg) 
+  * db.students.aggregate([{$group: {_id: "student_name", numSubs: {$avg: $views}}}])
+
+* 3. MINIMUM ($min) 
+  * 
 
