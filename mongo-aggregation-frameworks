@@ -1,2 +1,12 @@
+#In SQL COUNT(*) and with GROUP BY is basically the same as mongo's aggregation
+#Basic basic syntax of aggregate() method:
+db.collection.aggregate(aggregation_operation)
+
+#Let's say we have a collection students
+#If I want to display a list of how many submissions each student made, I would write the the following: 
+
+db.students.aggregate([{$group: {_id:"$student_name", numSubs: {$sum: 1}}}]);
+# Over here, I'm using student_name as a field, which will replace the _id part in the query output 
+
 
 
