@@ -1,5 +1,7 @@
 # MongoDB Cheatsheet
-
+* db.dropDatabase() 
+This will delete the selected database. If no database selected, it will delete the default "test" database.
+## Basic MongoDB Syntax 
 
 ## Key Mongo Aggregation Frameworks 
 * Modeled based on data processing pipelines. 
@@ -38,6 +40,11 @@ Let's say we have a collection students. If I want to display a list of how many
 db.students.aggregate([{$group: {_id:"$student_name", numSubs: {$sum: 1}}}]);
 
 _Over here, I'm using student_name as a field, which will replace the _id part in the query output_ 
+#### Single Purpose Aggregations, i.e FASTGAME AGGREGATION 
+* Sadly they lack some of the flexibilities of the usual aggregation pipeline
+1. db.mycollection.count()
+2. db.mycollection.distinct()
+3. db.mycollection.estimatedDocumentCount()
 
 #### Important Aggregation Expressions
 Let the collection here be students 
